@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+# qb - Query Builder
+
+# Description
+simple library for create  data base query's mySQL (based on PDO)
+
+# Install
+Step 1. Copy file from this reposytory in your project folder (don't rename file)
+<br>
+Step 2. In config.php make preferences for connect data base.
+<br>
+Step 3. In your index file or where your will be use qb your must connect file start.php. To do this, specify the full path to the start.php file.
+It is recommended to put the full path in a variable for easier query building. Example: $db = include  '/../example/example/start.php';
+
+# Examples
+$db->selectAll('users')->get(); equals "SELECT * FROM users;"
+
+<table>
+  <th>method</th>
+  <th>description</th>
+  <th>example</th>
+  <tr>
+    <td>public function create($table, $data)</td>
+    <td>$table(string) - table name,
+        <br>$data(array) - data for insert to data base</td>
+    <td>$db->create('users', ['name'=>'Jhon', 'email'=>'jhon@example.com'])</td>
+  </tr>
+    <tr>
+        <td>public function update($table, $data, $id)</td>
+        <td>$table(string) - table name,
+            <br>$data(array) - data for insert to data base
+            <br>$id(int) - id number of the record to be updated
+        </td>
+        <td>$db->update('users', ['name'=>'Jhon', 'email'=>'jhon@example.com'], 2)</td>
+    </tr>
+    <tr>
+        <td>public function delete($table, $id)</td>
+        <td>$table(string) - table name,
+            <br>$id(int) - id number of the record to be deleted
+        </td>
+        <td>$db->delete('users', 2)</td>
+    </tr>
+    <tr>
+        <td>public function selectAll($table)</td>
+        <td>$table(string) - table name
+            <br>This method returns all records from the specified table. At the end of the chain, you must pass the get method
+        </td>
+        <td>$db->selectAll('users')->get()</td>
+    </tr>
+    <tr>
+        <td>public function select($column = [], $table)</td>
+        <td>$column(array) - the columns of the table to be displayed
+            <br>$table(string) - table name
+            <br>This method returns the specified columns from the table
+        </td>
+        <td>$db->select('name, email','users')->get()</td>
+    </tr>
+</table>
+
+</body>
+</html>

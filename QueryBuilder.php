@@ -4,7 +4,7 @@
 class QueryBuilder
 {
     protected $pdo;
-    private $qs; //querystring $string
+    private $qs; //query string :string
     public function __construct($pdo)
     {
         $this->pdo = $pdo;
@@ -92,7 +92,7 @@ class QueryBuilder
      * @param null $condition string
      * @return $this string
      */
-    public function where($column, $sign, $condition=null)
+    public function where($column, $sign=null, $condition=null)
     {
         if (!$condition) {
             $this->qs .= "WHERE {$column}".' ';
