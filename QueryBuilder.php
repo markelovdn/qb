@@ -102,6 +102,32 @@ class QueryBuilder
 
     /**
      * @param $column string
+     * @param null $condition string, int
+     * @return $this string
+     */
+    public function andwhere($column, $sign=null, $condition=null)
+    {
+        if (!$condition) {
+            $this->qs .= "AND {$column}".' ';
+        } else {$this->qs .= "AND {$column} $sign '{$condition}'".' ';}
+        return $this;
+    }
+
+    /**
+     * @param $column string
+     * @param null $condition string, int
+     * @return $this string
+     */
+    public function orwhere($column, $sign=null, $condition=null)
+    {
+        if (!$condition) {
+            $this->qs .= "OR {$column}".' ';
+        } else {$this->qs .= "OR {$column} $sign '{$condition}'".' ';}
+        return $this;
+    }
+
+    /**
+     * @param $column string
      * @param int $direction
      * @return $this string
      *
@@ -125,17 +151,6 @@ class QueryBuilder
     }
 
     /**
-     * @param $min string (date formate yyyy-mm-dd)
-     * @param $max string (date formate yyyy-mm-dd)
-     * @return $this string
-     */
-    public function betweendate($mindate, $maxdate)
-    {
-        $this->qs .= "BETWEEN CAST('{$mindate}' AS DATE) AND CAST('{$maxdate}' AS DATE)".' ';
-        return $this;
-    }
-
-    /**
      * @param $minvalue string, int
      * @param $maxvalue string, int
      * @return $this string
@@ -147,28 +162,13 @@ class QueryBuilder
     }
 
     /**
-     * @param $column string
-     * @param null $condition string, int
+     * @param $min string (date formate yyyy-mm-dd)
+     * @param $max string (date formate yyyy-mm-dd)
      * @return $this string
      */
-    public function andwhere($column, $condition=null)
+    public function betweendate($mindate, $maxdate)
     {
-        if (!$condition) {
-            $this->qs .= "AND {$column}".' ';
-        } else {$this->qs .= "AND {$column}='{$condition}'".' ';}
-        return $this;
-    }
-
-    /**
-     * @param $column string
-     * @param null $condition string, int
-     * @return $this string
-     */
-    public function orwhere($column, $condition=null)
-    {
-        if (!$condition) {
-            $this->qs .= "OR {$column}".' ';
-        } else {$this->qs .= "OR {$column}='{$condition}'".' ';}
+        $this->qs .= "BETWEEN CAST('{$mindate}' AS DATE) AND CAST('{$maxdate}' AS DATE)".' ';
         return $this;
     }
 
