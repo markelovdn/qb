@@ -138,7 +138,7 @@ class QueryBuilder
     /**
      * @param $minvalue string, int
      * @param $maxvalue string, int
-     * @return $this
+     * @return $this string
      */
     public function between($minvalue, $maxvalue)
     {
@@ -146,6 +146,11 @@ class QueryBuilder
         return $this;
     }
 
+    /**
+     * @param $column string
+     * @param null $condition string, int
+     * @return $this string
+     */
     public function andwhere($column, $condition=null)
     {
         if (!$condition) {
@@ -154,6 +159,11 @@ class QueryBuilder
         return $this;
     }
 
+    /**
+     * @param $column string
+     * @param null $condition string, int
+     * @return $this string
+     */
     public function orwhere($column, $condition=null)
     {
         if (!$condition) {
@@ -162,48 +172,88 @@ class QueryBuilder
         return $this;
     }
 
+    /**
+     * @param $int int
+     * @return $this string
+     */
     public function limit($int)
     {
         $this->qs .= "LIMIT {$int}".' '   ;
         return $this;
     }
 
+    /**
+     * @param $condition string, int
+     * @return $this string
+     */
     public function like($condition)
     {
         $this->qs .= "LIKE '%{$condition}%'".' ';
         return $this;
     }
 
+    /**
+     * @param $table1 string
+     * @param $column1 string
+     * @param $table2 string
+     * @param $column2 string
+     * @return $this string
+     */
     public function join($table1, $column1, $table2, $column2)
     {
         $this->qs .= "INNER JOIN {$table2} ON {$table1}.{$column1}={$table2}.{$column2}".' ';
         return $this;
     }
 
+    /**
+     * @param $table1 string
+     * @param $column1 string
+     * @param $table2 string
+     * @param $column2 string
+     * @return $this string
+     */
     public function ljoin($table1, $column1, $table2, $column2)
     {
         $this->qs .= "LEFT JOIN {$table2} ON {$table1}.{$column1}={$table2}.{$column2}".' ';
         return $this;
     }
 
+    /**
+     * @param $table1 string
+     * @param $column1 string
+     * @param $table2 string
+     * @param $column2 string
+     * @return $this string
+     */
     public function rjoin($table1, $column1, $table2, $column2)
     {
         $this->qs .= "RIGHT JOIN {$table2} ON {$table1}.{$column1}={$table2}.{$column2}".' ';
         return $this;
     }
 
+    /**
+     * @return $this string
+     */
     public function union()
     {
         $this->qs .= "UNION".' ';
         return $this;
     }
 
+    /**
+     * @return $this string
+     * this method make any sql query
+     */
     public function raw($string)
     {
         $this->qs .= "{$string}";
         return $this;
     }
 
+    /**
+     * @return mixed
+     * this method handles the database request
+     */
     public function get() {
         $sql = $this->qs;
         $statement = $this->pdo->prepare($sql);
@@ -211,10 +261,4 @@ class QueryBuilder
         return $statement->fetchAll(PDO::FETCH_ASSOC);
 
     }
-
-    public function dd() {
-        $sql = $this->qs;
-        var_dump($sql);
-        die;
-           }
 }
