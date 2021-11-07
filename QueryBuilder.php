@@ -261,4 +261,8 @@ class QueryBuilder
         return $statement->fetchAll(PDO::FETCH_ASSOC);
 
     }
+
+    public function qs() {
+        return $sql = $this->qs;
+    }
 }

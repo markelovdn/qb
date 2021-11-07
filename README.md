@@ -192,4 +192,11 @@ $db->selectAll('users')->get(); equals "SELECT * FROM users;"
         <td>This is the main method that should end any chain of request with the select() or selectall() method</td>
         <td>$db->select('name, email','users')->get()</td>
     </tr>
+   <tr>
+        <td>public function qs()</td>
+        <td>This is a helper method, if necessary, return a full SQL request.</td>
+        <td>$db->select('name, email','users')->qs()
+        <br>return SELECT name, email FROM users
+        </td>
+    </tr>
 </table>
